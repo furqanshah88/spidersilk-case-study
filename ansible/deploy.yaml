@@ -1,0 +1,9 @@
+name: Deploy web application
+  hosts: localhost
+  tasks:
+    - name: Copy configuration files
+      copy:
+        src: ./config/
+        dest: /etc/web-app/config/
+    - name: Deploy Kubernetes objects
+      command: kubectl apply -f /etc/web-app/config/

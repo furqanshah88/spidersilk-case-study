@@ -1,0 +1,11 @@
+replicaCount: 3
+image:
+  repository: <dockerhub-username>/my-web-app
+  tag: latest
+service:
+  type: LoadBalancer
+  port: 80
+hpa:
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
