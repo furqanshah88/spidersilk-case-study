@@ -1,0 +1,33 @@
+apiVersion: kops/v1alpha2
+kind: Cluster
+metadata:
+  name: mycluster.k8s.local
+spec:
+  cloudProvider: aws
+  kubernetesVersion: 1.21.0
+  subnets:
+  - name: us-east-1a
+    zone: us-east-1a
+    type: Public
+  topology:
+    masters: public
+    nodes: public
+  networkCIDR: 172.20.0.0/16
+  networking:
+    calico: {}
+  instanceGroups:
+  - name: master-us-east-1a
+    role: Master
+    subnets:
+    - us-east-1a
+  - name: nodes
+    role: Node
+    subnets:
+    - us-east-1a
+    mixedInstancesPolicy:
+      instances:
+        - m5.large
+        - m5a.large
+      onDemandBase: 1
+      onDemandAboveBase: 50
+      spotRatio: 0.5
